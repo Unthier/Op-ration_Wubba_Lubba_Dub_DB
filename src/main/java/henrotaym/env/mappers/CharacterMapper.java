@@ -14,7 +14,8 @@ public class CharacterMapper {
         character.getName(),
         character.getStatus(),
         character.getImage(),
-        character.getEpisodeCount());
+        character.getEpisodeCount(),
+        character.getEpisodes());
   }
 
   public henrotaym.env.entities.Character request(
@@ -24,6 +25,7 @@ public class CharacterMapper {
     character.setStatus(request.status());
     character.setImage(request.image());
     character.setEpisodeCount(request.episodeCount());
+    character.setEpisodes(request.episodes());
 
     return character;
   }

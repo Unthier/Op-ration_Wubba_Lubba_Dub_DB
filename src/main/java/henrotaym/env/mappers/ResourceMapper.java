@@ -1,7 +1,9 @@
 package henrotaym.env.mappers;
 
 import henrotaym.env.entities.Character;
+import henrotaym.env.entities.Episode;
 import henrotaym.env.http.resources.CharacterResource;
+import henrotaym.env.http.resources.EpisodeResource;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Getter
 public class ResourceMapper {
-  // private final  studioMapper;
+  private final EpisodeMapper episodeMapper;
   private final CharacterMapper characterMapper;
 
   public CharacterResource gameResource(Character character) {
@@ -19,12 +21,9 @@ public class ResourceMapper {
     return gameResource;
   }
 
-  //   public StudioResource studioResource(Studio studio) {
-  //     List<GameResource> games =
-  //         studio.getGames().stream().map(g -> this.gameMapper.resource(g)).toList();
-  //     StudioResource studioResource = this.studioMapper.resource(studio);
-  //     studioResource.setGames(games);
+  public EpisodeResource studioResource(Episode episode) {
+    EpisodeResource episodeResources = this.episodeMapper.resource(episode);
 
-  //     return studioResource;
-  //   }
+    return episodeResources;
+  }
 }

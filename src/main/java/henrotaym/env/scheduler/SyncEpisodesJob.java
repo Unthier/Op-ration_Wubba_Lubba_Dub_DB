@@ -2,7 +2,7 @@ package henrotaym.env.scheduler;
 
 import henrotaym.env.enums.ProfileName;
 import henrotaym.env.queues.emitters.Emitter;
-import henrotaym.env.queues.events.SyncCharactersEvent;
+import henrotaym.env.queues.events.SyncEpisodesEvent;
 import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 import lombok.AllArgsConstructor;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @Profile(ProfileName.SCHEDULER)
-public class SyncCharactersJob {
+public class SyncEpisodesJob {
   private Emitter emitter;
 
   @Scheduled(timeUnit = TimeUnit.SECONDS, fixedDelay = 30)
   public void handle() {
-    SyncCharactersEvent syncCharactersEvent = new SyncCharactersEvent(BigInteger.valueOf(1));
+    SyncEpisodesEvent syncCharactersEvent = new SyncEpisodesEvent(BigInteger.valueOf(1));
     this.emitter.send(syncCharactersEvent);
-    log.info("Récuperez charactere");
+    log.info("Récuperez épisode");
   }
 }

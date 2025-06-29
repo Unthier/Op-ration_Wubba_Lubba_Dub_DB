@@ -25,7 +25,7 @@ public class SyncCharactersListener implements Listener<SyncCharactersEvent> {
   @Override
   @KafkaRetryableListener(SyncCharactersEvent.EVENT_NAME)
   public void listen(SyncCharactersEvent event) {
-    log.info("hello");
+    log.info("Charactere");
     CharacterResponsOrigin characterResources = this.characterService.index(event.getPageNumber());
     List<CharacterResource> characterMappers =
         characterResources.getResults().stream()

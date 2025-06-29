@@ -17,7 +17,8 @@ public class CharacterOriginMapper {
         character.getName(),
         CharacterStatusName.valueOf(character.getStatus().toString()),
         character.getImage(),
-        character.getEpisode().size());
+        character.getEpisode().size(),
+        character.getEpisode());
   }
 
   public henrotaym.env.entities.Character request(

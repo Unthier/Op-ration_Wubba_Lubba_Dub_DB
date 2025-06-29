@@ -3,9 +3,8 @@ package henrotaym.env.services;
 import henrotaym.env.entities.Character;
 import henrotaym.env.entities.OriginEntities.CharacterResponsOrigin;
 import henrotaym.env.http.resources.CharacterResource;
-import henrotaym.env.mappers.CharacterMapper;
 import henrotaym.env.mappers.ResourceMapper;
-import henrotaym.env.repositories.CharacterReposity;
+import henrotaym.env.repositories.CharacterRepository;
 import java.math.BigInteger;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,8 +15,7 @@ import org.springframework.web.client.RestClient;
 @AllArgsConstructor
 public class CharacterService {
   private RestClient restClient;
-  private CharacterReposity characterReposity;
-  private CharacterMapper characterMapper;
+  private CharacterRepository characterRepository;
   private ResourceMapper resourceMapper;
 
   public CharacterResponsOrigin index(BigInteger pageNumber) {
@@ -41,12 +39,14 @@ public class CharacterService {
   // }
 
   public void storeOrUpdate(CharacterResource request) {
-    Character character = this.findById(request.id());
+    Character character = this.findByApiCharacterId(request.id());
     character = this.resourceMapper.getCharacterMapper().request(request, character);
-    character = this.characterReposity.save(character);
+    character = this.characterRepository.save(character);
   }
 
-  public Character findById(BigInteger id) {
-    return this.characterReposity.findById(id).orElseGet(() -> new Character());
+  public Character findByApiCharacterId(BigInteger apiCharacterId) {
+    return this.characterRepository
+        .findByApiCharacterId(apiCharacterId)
+        .orElseGet(() -> new Character());
   }
 }

@@ -11,10 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class SyncCharactersEvent implements Event {
+public class SyncEpisodesEvent implements Event {
   private BigInteger pageNumber;
 
-  public static final String EVENT_NAME = EventName.CHARACTER_UPDATED;
+  public static final String EVENT_NAME = EventName.EPISODE_UPDATED;
 
   @Override
   public String eventName() {
