@@ -20,7 +20,7 @@ public class SyncEpisodesJob {
 
   @Scheduled(timeUnit = TimeUnit.SECONDS, fixedDelay = 30)
   public void handle() {
-    SyncEpisodesEvent syncCharactersEvent = new SyncEpisodesEvent(BigInteger.valueOf(1));
+    SyncEpisodesEvent syncCharactersEvent = new SyncEpisodesEvent(BigInteger.valueOf(2));
     this.emitter.send(syncCharactersEvent);
     log.info("Récuperez épisode");
   }

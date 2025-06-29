@@ -2,6 +2,7 @@ package henrotaym.env.services;
 
 import henrotaym.env.entities.Character;
 import henrotaym.env.entities.Episode;
+import henrotaym.env.entities.OriginEntities.CharacterOrigin;
 import henrotaym.env.entities.OriginEntities.EpisodeResponsOrigin;
 import henrotaym.env.http.resources.EpisodeResource;
 import henrotaym.env.mappers.ResourceMapper;
@@ -46,6 +47,7 @@ public class EpisodeService {
   // }
 
   public void storeOrUpdate(EpisodeResource request) {
+    // todo Penser à fair une relation many to many entre les episodes et les characters...
 
     Optional<Episode> existingEpisodeOpt = this.episodeRepository.findByApiEpisodeId(request.id());
     if (existingEpisodeOpt.isPresent()) {
@@ -62,13 +64,26 @@ public class EpisodeService {
       if (optionalCharacter.isEmpty()) continue;
 
       Character character = optionalCharacter.get();
-      Integer episodeCount = character.getEpisodeCount();
-      if (episodeCount == null) {
-        episodeCount = 0;
+      CharacterOrigin characterOrigin = this.characterService.show(characterId);
+      Boolean find = false;
+      for (String episodeInCharacter : characterOrigin.getEpisode()) {
+        BigInteger id = extractEpisodeIdFromUrl(episodeInCharacter);
+        if (id.equals(episode.getApiEpisodeId())) {
+          find = true;
+        }
       }
+      if (find) {
+        Integer episodeCount = character.getEpisodeCount();
+        if (episodeCount == null) {
+          episodeCount = 0;
+        }
 
-      character.setEpisodeCount(episodeCount + 1);
-      this.characterRepository.save(character);
+        character.setEpisodeCount(episodeCount + 1);
+        // if (character.getName().equals("Arbolian Mentirososian")) {
+        //   log.info(character.getEpisodeCount().toString());
+        // }
+        this.characterRepository.save(character);
+      }
     }
   }
 
@@ -77,6 +92,11 @@ public class EpisodeService {
   }
 
   private BigInteger extractCharacterIdFromUrl(String url) {
+    String[] parts = url.split("/");
+    return new BigInteger(parts[parts.length - 1]);
+  }
+
+  private BigInteger extractEpisodeIdFromUrl(String url) {
     String[] parts = url.split("/");
     return new BigInteger(parts[parts.length - 1]);
   }

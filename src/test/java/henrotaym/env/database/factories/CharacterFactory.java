@@ -21,9 +21,9 @@ public class CharacterFactory extends EntityFactory<henrotaym.env.entities.Chara
 
   @Override
   protected void attributes(Character entity) {
-    entity.setName(this.faker.rickAndMorty().character());
+    entity.setName("Rick Sanchez");
     entity.setImage(this.faker.internet().image());
-    entity.setApiCharacterId(BigInteger.valueOf(454));
+    entity.setApiCharacterId(BigInteger.valueOf(21));
     entity.setEpisodeCount(0);
     entity.setStatus(CharacterStatusName.Alive);
   }

@@ -1,6 +1,7 @@
 package henrotaym.env.services;
 
 import henrotaym.env.entities.Character;
+import henrotaym.env.entities.OriginEntities.CharacterOrigin;
 import henrotaym.env.entities.OriginEntities.CharacterResponsOrigin;
 import henrotaym.env.http.resources.CharacterResource;
 import henrotaym.env.mappers.ResourceMapper;
@@ -24,6 +25,14 @@ public class CharacterService {
         .uri("/character/?page=" + pageNumber)
         .retrieve()
         .body(new ParameterizedTypeReference<CharacterResponsOrigin>() {});
+  }
+
+  public CharacterOrigin show(BigInteger id) {
+    return this.restClient
+        .get()
+        .uri("/character/" + id)
+        .retrieve()
+        .body(new ParameterizedTypeReference<CharacterOrigin>() {});
   }
 
   // public CharacterResource store(CharacterRequest request) {
